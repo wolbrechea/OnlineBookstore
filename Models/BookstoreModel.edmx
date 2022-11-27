@@ -1,0 +1,1069 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BookstoreDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="State" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Assigned">
+          <Key>
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="CategoryCode" />
+          </Key>
+          <Property Name="ISBN" Type="int" Nullable="false" />
+          <Property Name="CategoryCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="AuthorID" />
+          </Key>
+          <Property Name="AuthorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuthorAddresses">
+          <Key>
+            <PropertyRef Name="AuthorID" />
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AuthorID" Type="int" Nullable="false" />
+          <Property Name="AddressID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuthorEmails">
+          <Key>
+            <PropertyRef Name="AuthorID" />
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="AuthorID" Type="int" Nullable="false" />
+          <Property Name="EmailID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuthorPhones">
+          <Key>
+            <PropertyRef Name="AuthorID" />
+            <PropertyRef Name="PhoneID" />
+          </Key>
+          <Property Name="AuthorID" Type="int" Nullable="false" />
+          <Property Name="PhoneID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookCategories">
+          <Key>
+            <PropertyRef Name="CategoryCode" />
+          </Key>
+          <Property Name="CategoryCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryDescription" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PublicationDate" Type="date" Nullable="false" />
+          <Property Name="UserReview" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerAddresses">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="AddressID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerEmails">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="EmailID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerPhones">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="PhoneID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="PhoneID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Emails">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="OrderValue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderItems">
+          <Key>
+            <PropertyRef Name="ItemNumber" />
+          </Key>
+          <Property Name="ItemNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemPrice" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="ISBN" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Phones">
+          <Key>
+            <PropertyRef Name="PhoneID" />
+          </Key>
+          <Property Name="PhoneID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupplierRep">
+          <Key>
+            <PropertyRef Name="WorkNumber" />
+          </Key>
+          <Property Name="WorkNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CellNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SupplierID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WrittenBy">
+          <Key>
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="AuthorID" />
+          </Key>
+          <Property Name="ISBN" Type="int" Nullable="false" />
+          <Property Name="AuthorID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Books_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierRep_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SupplierRep" Type="Self.SupplierRep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupplierRep">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkAssigned_BookCategories">
+          <End Role="BookCategories" Type="Self.BookCategories" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Assigned" Type="Self.Assigned" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookCategories">
+              <PropertyRef Name="CategoryCode" />
+            </Principal>
+            <Dependent Role="Assigned">
+              <PropertyRef Name="CategoryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkAssigned_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Assigned" Type="Self.Assigned" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="Assigned">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkAuthorAddresses_Addresses">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuthorAddresses" Type="Self.AuthorAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="AuthorAddresses">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkAuthorAddresses_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuthorAddresses" Type="Self.AuthorAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="AuthorID" />
+            </Principal>
+            <Dependent Role="AuthorAddresses">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkAuthorEmails_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuthorEmails" Type="Self.AuthorEmails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="AuthorID" />
+            </Principal>
+            <Dependent Role="AuthorEmails">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkAuthorEmails_Emails">
+          <End Role="Emails" Type="Self.Emails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuthorEmails" Type="Self.AuthorEmails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emails">
+              <PropertyRef Name="EmailID" />
+            </Principal>
+            <Dependent Role="AuthorEmails">
+              <PropertyRef Name="EmailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkAuthorPhones_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuthorPhones" Type="Self.AuthorPhones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="AuthorID" />
+            </Principal>
+            <Dependent Role="AuthorPhones">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkAuthorPhones_Phones">
+          <End Role="Phones" Type="Self.Phones" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuthorPhones" Type="Self.AuthorPhones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phones">
+              <PropertyRef Name="PhoneID" />
+            </Principal>
+            <Dependent Role="AuthorPhones">
+              <PropertyRef Name="PhoneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCustomerAddresses_Addresses">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomerAddresses" Type="Self.CustomerAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="CustomerAddresses">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCustomerAddresses_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomerAddresses" Type="Self.CustomerAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="CustomerAddresses">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCustomerEmails_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomerEmails" Type="Self.CustomerEmails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="CustomerEmails">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCustomerEmails_Emails">
+          <End Role="Emails" Type="Self.Emails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomerEmails" Type="Self.CustomerEmails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emails">
+              <PropertyRef Name="EmailID" />
+            </Principal>
+            <Dependent Role="CustomerEmails">
+              <PropertyRef Name="EmailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCustomerPhones_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomerPhones" Type="Self.CustomerPhones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="CustomerPhones">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCustomerPhones_Phones">
+          <End Role="Phones" Type="Self.Phones" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomerPhones" Type="Self.CustomerPhones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phones">
+              <PropertyRef Name="PhoneID" />
+            </Principal>
+            <Dependent Role="CustomerPhones">
+              <PropertyRef Name="PhoneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkWrittenBy_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WrittenBy" Type="Self.WrittenBy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="AuthorID" />
+            </Principal>
+            <Dependent Role="WrittenBy">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkWrittenBy_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WrittenBy" Type="Self.WrittenBy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="WrittenBy">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookstoreDBModelStoreContainer">
+          <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Assigned" EntityType="Self.Assigned" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuthorAddresses" EntityType="Self.AuthorAddresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuthorEmails" EntityType="Self.AuthorEmails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuthorPhones" EntityType="Self.AuthorPhones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookCategories" EntityType="Self.BookCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerAddresses" EntityType="Self.CustomerAddresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerEmails" EntityType="Self.CustomerEmails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerPhones" EntityType="Self.CustomerPhones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Emails" EntityType="Self.Emails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Phones" EntityType="Self.Phones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplierRep" EntityType="Self.SupplierRep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WrittenBy" EntityType="Self.WrittenBy" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Books_Supplier" Association="Self.FK_Books_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customers" Association="Self.FK_Order_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_Books" Association="Self.FK_OrderItems_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_Order" Association="Self.FK_OrderItems_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierRep_Supplier" Association="Self.FK_SupplierRep_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="SupplierRep" EntitySet="SupplierRep" />
+          </AssociationSet>
+          <AssociationSet Name="fkAssigned_BookCategories" Association="Self.fkAssigned_BookCategories">
+            <End Role="BookCategories" EntitySet="BookCategories" />
+            <End Role="Assigned" EntitySet="Assigned" />
+          </AssociationSet>
+          <AssociationSet Name="fkAssigned_Books" Association="Self.fkAssigned_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="Assigned" EntitySet="Assigned" />
+          </AssociationSet>
+          <AssociationSet Name="fkAuthorAddresses_Addresses" Association="Self.fkAuthorAddresses_Addresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="AuthorAddresses" EntitySet="AuthorAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="fkAuthorAddresses_Author" Association="Self.fkAuthorAddresses_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="AuthorAddresses" EntitySet="AuthorAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="fkAuthorEmails_Author" Association="Self.fkAuthorEmails_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="AuthorEmails" EntitySet="AuthorEmails" />
+          </AssociationSet>
+          <AssociationSet Name="fkAuthorEmails_Emails" Association="Self.fkAuthorEmails_Emails">
+            <End Role="Emails" EntitySet="Emails" />
+            <End Role="AuthorEmails" EntitySet="AuthorEmails" />
+          </AssociationSet>
+          <AssociationSet Name="fkAuthorPhones_Author" Association="Self.fkAuthorPhones_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="AuthorPhones" EntitySet="AuthorPhones" />
+          </AssociationSet>
+          <AssociationSet Name="fkAuthorPhones_Phones" Association="Self.fkAuthorPhones_Phones">
+            <End Role="Phones" EntitySet="Phones" />
+            <End Role="AuthorPhones" EntitySet="AuthorPhones" />
+          </AssociationSet>
+          <AssociationSet Name="fkCustomerAddresses_Addresses" Association="Self.fkCustomerAddresses_Addresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="CustomerAddresses" EntitySet="CustomerAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="fkCustomerAddresses_Customers" Association="Self.fkCustomerAddresses_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="CustomerAddresses" EntitySet="CustomerAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="fkCustomerEmails_Customers" Association="Self.fkCustomerEmails_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="CustomerEmails" EntitySet="CustomerEmails" />
+          </AssociationSet>
+          <AssociationSet Name="fkCustomerEmails_Emails" Association="Self.fkCustomerEmails_Emails">
+            <End Role="Emails" EntitySet="Emails" />
+            <End Role="CustomerEmails" EntitySet="CustomerEmails" />
+          </AssociationSet>
+          <AssociationSet Name="fkCustomerPhones_Customers" Association="Self.fkCustomerPhones_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="CustomerPhones" EntitySet="CustomerPhones" />
+          </AssociationSet>
+          <AssociationSet Name="fkCustomerPhones_Phones" Association="Self.fkCustomerPhones_Phones">
+            <End Role="Phones" EntitySet="Phones" />
+            <End Role="CustomerPhones" EntitySet="CustomerPhones" />
+          </AssociationSet>
+          <AssociationSet Name="fkWrittenBy_Author" Association="Self.fkWrittenBy_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="WrittenBy" EntitySet="WrittenBy" />
+          </AssociationSet>
+          <AssociationSet Name="fkWrittenBy_Books" Association="Self.fkWrittenBy_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="WrittenBy" EntitySet="WrittenBy" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookstoreDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Street" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Authors" Relationship="Self.AuthorAddresses" FromRole="Addresses" ToRole="Author" />
+          <NavigationProperty Name="Customers" Relationship="Self.CustomerAddresses" FromRole="Addresses" ToRole="Customers" />
+        </EntityType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="AuthorID" />
+          </Key>
+          <Property Name="AuthorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Addresses" Relationship="Self.AuthorAddresses" FromRole="Author" ToRole="Addresses" />
+          <NavigationProperty Name="Emails" Relationship="Self.AuthorEmails" FromRole="Author" ToRole="Emails" />
+          <NavigationProperty Name="Phones" Relationship="Self.AuthorPhones" FromRole="Author" ToRole="Phones" />
+          <NavigationProperty Name="Books" Relationship="Self.WrittenBy" FromRole="Author" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="BookCategory">
+          <Key>
+            <PropertyRef Name="CategoryCode" />
+          </Key>
+          <Property Name="CategoryCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.Assigned" FromRole="BookCategories" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublicationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserReview" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_Books_Supplier" FromRole="Books" ToRole="Supplier" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_Books" FromRole="Books" ToRole="OrderItems" />
+          <NavigationProperty Name="BookCategories" Relationship="Self.Assigned" FromRole="Books" ToRole="BookCategories" />
+          <NavigationProperty Name="Authors" Relationship="Self.WrittenBy" FromRole="Books" ToRole="Author" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Customers" FromRole="Customers" ToRole="Order" />
+          <NavigationProperty Name="Addresses" Relationship="Self.CustomerAddresses" FromRole="Customers" ToRole="Addresses" />
+          <NavigationProperty Name="Emails" Relationship="Self.CustomerEmails" FromRole="Customers" ToRole="Emails" />
+          <NavigationProperty Name="Phones" Relationship="Self.CustomerPhones" FromRole="Customers" ToRole="Phones" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Authors" Relationship="Self.AuthorEmails" FromRole="Emails" ToRole="Author" />
+          <NavigationProperty Name="Customers" Relationship="Self.CustomerEmails" FromRole="Emails" ToRole="Customers" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="OrderValue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Order_Customers" FromRole="Order" ToRole="Customers" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_Order" FromRole="Order" ToRole="OrderItems" />
+        </EntityType>
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="ItemNumber" />
+          </Key>
+          <Property Name="ItemNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemPrice" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="ISBN" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_OrderItems_Books" FromRole="OrderItems" ToRole="Books" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_OrderItems_Order" FromRole="OrderItems" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="PhoneID" />
+          </Key>
+          <Property Name="PhoneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Authors" Relationship="Self.AuthorPhones" FromRole="Phones" ToRole="Author" />
+          <NavigationProperty Name="Customers" Relationship="Self.CustomerPhones" FromRole="Phones" ToRole="Customers" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Supplier" FromRole="Supplier" ToRole="Books" />
+          <NavigationProperty Name="SupplierReps" Relationship="BookstoreDBModel.FK_SupplierRep_Supplier" FromRole="Supplier" ToRole="SupplierRep" />
+        </EntityType>
+        <Association Name="FK_Books_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Books" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_Books">
+          <End Role="Books" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderItems" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customers">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderItems" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Assigned">
+          <End Role="BookCategories" Type="Self.BookCategory" Multiplicity="*" />
+          <End Role="Books" Type="Self.Book" Multiplicity="*" />
+        </Association>
+        <Association Name="AuthorAddresses">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="*" />
+          <End Role="Author" Type="Self.Author" Multiplicity="*" />
+        </Association>
+        <Association Name="AuthorEmails">
+          <End Role="Author" Type="Self.Author" Multiplicity="*" />
+          <End Role="Emails" Type="Self.Email" Multiplicity="*" />
+        </Association>
+        <Association Name="AuthorPhones">
+          <End Role="Author" Type="Self.Author" Multiplicity="*" />
+          <End Role="Phones" Type="Self.Phone" Multiplicity="*" />
+        </Association>
+        <Association Name="CustomerAddresses">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="*" />
+          <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
+        </Association>
+        <Association Name="CustomerEmails">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
+          <End Role="Emails" Type="Self.Email" Multiplicity="*" />
+        </Association>
+        <Association Name="CustomerPhones">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
+          <End Role="Phones" Type="Self.Phone" Multiplicity="*" />
+        </Association>
+        <Association Name="WrittenBy">
+          <End Role="Author" Type="Self.Author" Multiplicity="*" />
+          <End Role="Books" Type="Self.Book" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="BookstoreDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Authors" EntityType="Self.Author" />
+          <EntitySet Name="BookCategories" EntityType="Self.BookCategory" />
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Emails" EntityType="Self.Email" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
+          <EntitySet Name="Phones" EntityType="Self.Phone" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <AssociationSet Name="FK_Books_Supplier" Association="Self.FK_Books_Supplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_Books" Association="Self.FK_OrderItems_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customers" Association="Self.FK_Order_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_Order" Association="Self.FK_OrderItems_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="Assigned" Association="Self.Assigned">
+            <End Role="BookCategories" EntitySet="BookCategories" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorAddresses" Association="Self.AuthorAddresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Author" EntitySet="Authors" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorEmails" Association="Self.AuthorEmails">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Emails" EntitySet="Emails" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorPhones" Association="Self.AuthorPhones">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Phones" EntitySet="Phones" />
+          </AssociationSet>
+          <AssociationSet Name="CustomerAddresses" Association="Self.CustomerAddresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="CustomerEmails" Association="Self.CustomerEmails">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Emails" EntitySet="Emails" />
+          </AssociationSet>
+          <AssociationSet Name="CustomerPhones" Association="Self.CustomerPhones">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Phones" EntitySet="Phones" />
+          </AssociationSet>
+          <AssociationSet Name="WrittenBy" Association="Self.WrittenBy">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <EntitySet Name="SupplierReps" EntityType="BookstoreDBModel.SupplierRep" />
+          <AssociationSet Name="FK_SupplierRep_Supplier" Association="BookstoreDBModel.FK_SupplierRep_Supplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="SupplierRep" EntitySet="SupplierReps" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="SupplierRep">
+          <Key>
+            <PropertyRef Name="WorkNumber" />
+          </Key>
+          <Property Name="WorkNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CellNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Fname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Supplier" Relationship="BookstoreDBModel.FK_SupplierRep_Supplier" FromRole="SupplierRep" ToRole="Supplier" />
+        </EntityType>
+        <Association Name="FK_SupplierRep_Supplier">
+          <End Type="BookstoreDBModel.Supplier" Role="Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BookstoreDBModel.SupplierRep" Role="SupplierRep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupplierRep">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BookstoreDBModelStoreContainer" CdmEntityContainer="BookstoreDBEntities1">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="BookstoreDBModel.Address">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="BookstoreDBModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookCategories">
+            <EntityTypeMapping TypeName="BookstoreDBModel.BookCategory">
+              <MappingFragment StoreEntitySet="BookCategories">
+                <ScalarProperty Name="CategoryCode" ColumnName="CategoryCode" />
+                <ScalarProperty Name="CategoryDescription" ColumnName="CategoryDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="BookstoreDBModel.Book">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="PublicationDate" ColumnName="PublicationDate" />
+                <ScalarProperty Name="UserReview" ColumnName="UserReview" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="BookstoreDBModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emails">
+            <EntityTypeMapping TypeName="BookstoreDBModel.Email">
+              <MappingFragment StoreEntitySet="Emails">
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="BookstoreDBModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderItems">
+            <EntityTypeMapping TypeName="BookstoreDBModel.OrderItem">
+              <MappingFragment StoreEntitySet="OrderItems">
+                <ScalarProperty Name="ItemNumber" ColumnName="ItemNumber" />
+                <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phones">
+            <EntityTypeMapping TypeName="BookstoreDBModel.Phone">
+              <MappingFragment StoreEntitySet="Phones">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneID" ColumnName="PhoneID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="BookstoreDBModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Assigned" TypeName="BookstoreDBModel.Assigned" StoreEntitySet="Assigned">
+            <EndProperty Name="BookCategories">
+              <ScalarProperty Name="CategoryCode" ColumnName="CategoryCode" />
+            </EndProperty>
+            <EndProperty Name="Books">
+              <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AuthorAddresses" TypeName="BookstoreDBModel.AuthorAddresses" StoreEntitySet="AuthorAddresses">
+            <EndProperty Name="Addresses">
+              <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+            </EndProperty>
+            <EndProperty Name="Author">
+              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AuthorEmails" TypeName="BookstoreDBModel.AuthorEmails" StoreEntitySet="AuthorEmails">
+            <EndProperty Name="Author">
+              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+            </EndProperty>
+            <EndProperty Name="Emails">
+              <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AuthorPhones" TypeName="BookstoreDBModel.AuthorPhones" StoreEntitySet="AuthorPhones">
+            <EndProperty Name="Author">
+              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+            </EndProperty>
+            <EndProperty Name="Phones">
+              <ScalarProperty Name="PhoneID" ColumnName="PhoneID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CustomerAddresses" TypeName="BookstoreDBModel.CustomerAddresses" StoreEntitySet="CustomerAddresses">
+            <EndProperty Name="Addresses">
+              <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+            </EndProperty>
+            <EndProperty Name="Customers">
+              <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CustomerEmails" TypeName="BookstoreDBModel.CustomerEmails" StoreEntitySet="CustomerEmails">
+            <EndProperty Name="Customers">
+              <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+            </EndProperty>
+            <EndProperty Name="Emails">
+              <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CustomerPhones" TypeName="BookstoreDBModel.CustomerPhones" StoreEntitySet="CustomerPhones">
+            <EndProperty Name="Customers">
+              <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+            </EndProperty>
+            <EndProperty Name="Phones">
+              <ScalarProperty Name="PhoneID" ColumnName="PhoneID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="WrittenBy" TypeName="BookstoreDBModel.WrittenBy" StoreEntitySet="WrittenBy">
+            <EndProperty Name="Author">
+              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+            </EndProperty>
+            <EndProperty Name="Books">
+              <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="SupplierReps">
+            <EntityTypeMapping TypeName="BookstoreDBModel.SupplierRep">
+              <MappingFragment StoreEntitySet="SupplierRep">
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
+                <ScalarProperty Name="WorkNumber" ColumnName="WorkNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

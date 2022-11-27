@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Admin";
+}
+
+<div class="jumbotron">
+    <h1>Admin Page</h1>
+    <p class="lead">Use this page to view orders and customers.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+
+<div>
+    @Html.ActionLink("List of customers", "Index", "Customers")<br />
+    @Html.ActionLink("List of phones", "Index", "Phones")<br />
+    @Html.ActionLink("List of orders", "Index", "Orders")<br />
+</div>
+

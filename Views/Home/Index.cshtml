@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Bookstore</h1>
+    <p class="lead">Welcome to the best Online bookstore. This is the best spot to get books at a great price.</p>
+</div>
+
+<div>
+    @Html.ActionLink("Browse our Books", "Index", "Books")
+    @Html.ActionLink("Administrator View", "Admin", "Home")
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Online Library</h2>
+        <p>
+
+            Browse our large assortment of books all at great prices.
+        </p>
+        <p><a class="btn btn-default" href="https://localhost:44348/Books">Browse Library</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>View Orders</h2>
+        <p>View your orders. You will also be able to edit.</p>
+        <p><a class="btn btn-default" href="https://localhost:44348/Orders">Orders</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Administrator</h2>
+        <p>Administrator funtions for users with elevated access.</p>
+        <p><a class="btn btn-default" href="https://localhost:44348/Account/Login?ReturnUrl=%2FHome%2FAdmin">Admin View</a></p>
+    </div>
+</div>
