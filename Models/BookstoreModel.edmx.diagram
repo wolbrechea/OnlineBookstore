@@ -4,9 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="29b31ece08674f9e9ab3e1a3c286cc1c" Name="Diagram1" ZoomLevel="127">
+      <Diagram DiagramId="29b31ece08674f9e9ab3e1a3c286cc1c" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="BookstoreDBModel.Address" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookstoreDBModel.Author" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="BookstoreDBModel.BookCategory" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BookstoreDBModel.Book" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BookstoreDBModel.Customer" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
@@ -20,15 +19,16 @@
         <AssociationConnector Association="BookstoreDBModel.FK_Order_Customers" ManuallyRouted="false" />
         <AssociationConnector Association="BookstoreDBModel.FK_OrderItems_Order" ManuallyRouted="false" />
         <AssociationConnector Association="BookstoreDBModel.Assigned" ManuallyRouted="false" />
-        <AssociationConnector Association="BookstoreDBModel.AuthorAddresses" ManuallyRouted="false" />
-        <AssociationConnector Association="BookstoreDBModel.AuthorEmails" ManuallyRouted="false" />
-        <AssociationConnector Association="BookstoreDBModel.AuthorPhones" ManuallyRouted="false" />
         <AssociationConnector Association="BookstoreDBModel.CustomerAddresses" ManuallyRouted="false" />
         <AssociationConnector Association="BookstoreDBModel.CustomerEmails" ManuallyRouted="false" />
         <AssociationConnector Association="BookstoreDBModel.CustomerPhones" ManuallyRouted="false" />
-        <AssociationConnector Association="BookstoreDBModel.WrittenBy" ManuallyRouted="false" />
         <EntityTypeShape EntityType="BookstoreDBModel.SupplierRep" Width="1.5" PointX="5.25" PointY="11.375" />
         <AssociationConnector Association="BookstoreDBModel.FK_SupplierRep_Supplier" />
+        <EntityTypeShape EntityType="BookstoreDBModel.Author" Width="1.5" PointX="3" PointY="13.625" />
+        <AssociationConnector Association="BookstoreDBModel.AuthorAddresses" />
+        <AssociationConnector Association="BookstoreDBModel.AuthorEmails" />
+        <AssociationConnector Association="BookstoreDBModel.AuthorPhones" />
+        <AssociationConnector Association="BookstoreDBModel.WrittenBy" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

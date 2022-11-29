@@ -14,16 +14,21 @@ namespace OnlineBookstore.Views
     
     public class BooksController : Controller
     {
-        private BookstoreDBEntities1 db = new BookstoreDBEntities1();
+		private BookstoreDBEntities1 db = new BookstoreDBEntities1();
         private Order order = new Order();
         private OrderItem orderitem = new OrderItem();
         private Customer customer = new Customer();
+        private Author author = new Author();
+       
+        Phone phone = new Phone();
+        Address address = new Address();
+        Email email = new Email();
 
         // GET: Books
-        public ActionResult Index(string id)
+        public ActionResult Index(string searchString)
         {
             //var books = db.Books.Include(b => b.Supplier);
-            string searchString = id;
+            //string searchString = id;;
 
             var books = from b in db.Books
                          select b;
@@ -51,6 +56,7 @@ namespace OnlineBookstore.Views
             return View(book);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Books/Create
         public ActionResult Create()
         {
@@ -65,10 +71,45 @@ namespace OnlineBookstore.Views
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ISBN,PublicationDate,UserReview,Title,Price,ID")] Book book)
         {
+
             if (ModelState.IsValid)
             {
+
+                //Add Author
+                author.Fname = "Anna";
+                author.Lname = "Wol";
+                author.DateOfBirth = "06/01/2019";
+                author.Gender = "Female";
+
+                address.Street = "1234 Main";
+                address.City = "Katy";
+                address.State = "TX";
+                address.PostalCode = "77450";
+
+                author.Addresses.Add(address);
+
+                //Add Phone
+                phone.PhoneNumber = "713.123.1234";
+                phone.Type = "mobile";
+
+                author.Phones.Add(phone);
+
+                email.EmailAddress = "author@hotmail.com";
+                email.Type = "personal";
+
+                author.Emails.Add(email);
+
+                //author.Books.Add(book);
+
+                db.Authors.Add(author);
+                db.SaveChanges();
+
+                book.UserReview = "Love this book! Great ending!";
+
                 db.Books.Add(book);
                 db.SaveChanges();
+
+
                 return RedirectToAction("Index");
             }
 
@@ -76,6 +117,7 @@ namespace OnlineBookstore.Views
             return View(book);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Books/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -109,6 +151,7 @@ namespace OnlineBookstore.Views
             return View(book);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Books/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -161,7 +204,7 @@ namespace OnlineBookstore.Views
             if (ModelState.IsValid)
             {
                 order.OrderDate = DateTime.Now;
-                order.OrderValue = "Order for books";
+                order.OrderValue = book.Title;
 
                 var user = System.Web.HttpContext.Current.User.Identity.GetUserName();
 

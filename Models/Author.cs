@@ -26,7 +26,7 @@ namespace OnlineBookstore.Models
         public int AuthorID { get; set; }
         public string Fname { get; set; }
         public string Lname { get; set; }
-        public System.DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
         public string Gender { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

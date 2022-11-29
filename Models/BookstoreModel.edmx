@@ -30,7 +30,7 @@
           <Property Name="AuthorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Fname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Lname" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="DateOfBirth" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Gender" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="AuthorAddresses">
@@ -580,22 +580,8 @@
           <Property Name="City" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="PostalCode" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Authors" Relationship="Self.AuthorAddresses" FromRole="Addresses" ToRole="Author" />
           <NavigationProperty Name="Customers" Relationship="Self.CustomerAddresses" FromRole="Addresses" ToRole="Customers" />
-        </EntityType>
-        <EntityType Name="Author">
-          <Key>
-            <PropertyRef Name="AuthorID" />
-          </Key>
-          <Property Name="AuthorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Addresses" Relationship="Self.AuthorAddresses" FromRole="Author" ToRole="Addresses" />
-          <NavigationProperty Name="Emails" Relationship="Self.AuthorEmails" FromRole="Author" ToRole="Emails" />
-          <NavigationProperty Name="Phones" Relationship="Self.AuthorPhones" FromRole="Author" ToRole="Phones" />
-          <NavigationProperty Name="Books" Relationship="Self.WrittenBy" FromRole="Author" ToRole="Books" />
+          <NavigationProperty Name="Authors" Relationship="BookstoreDBModel.AuthorAddresses" FromRole="Address" ToRole="Author" />
         </EntityType>
         <EntityType Name="BookCategory">
           <Key>
@@ -618,7 +604,7 @@
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Books_Supplier" FromRole="Books" ToRole="Supplier" />
           <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_Books" FromRole="Books" ToRole="OrderItems" />
           <NavigationProperty Name="BookCategories" Relationship="Self.Assigned" FromRole="Books" ToRole="BookCategories" />
-          <NavigationProperty Name="Authors" Relationship="Self.WrittenBy" FromRole="Books" ToRole="Author" />
+          <NavigationProperty Name="Authors" Relationship="BookstoreDBModel.WrittenBy" FromRole="Book" ToRole="Author" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -639,9 +625,9 @@
           </Key>
           <Property Name="EmailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Authors" Relationship="Self.AuthorEmails" FromRole="Emails" ToRole="Author" />
           <NavigationProperty Name="Customers" Relationship="Self.CustomerEmails" FromRole="Emails" ToRole="Customers" />
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Authors" Relationship="BookstoreDBModel.AuthorEmails" FromRole="Email" ToRole="Author" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -671,9 +657,9 @@
           </Key>
           <Property Name="PhoneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Authors" Relationship="Self.AuthorPhones" FromRole="Phones" ToRole="Author" />
           <NavigationProperty Name="Customers" Relationship="Self.CustomerPhones" FromRole="Phones" ToRole="Customers" />
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Authors" Relationship="BookstoreDBModel.AuthorPhones" FromRole="Phone" ToRole="Author" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -744,18 +730,6 @@
           <End Role="BookCategories" Type="Self.BookCategory" Multiplicity="*" />
           <End Role="Books" Type="Self.Book" Multiplicity="*" />
         </Association>
-        <Association Name="AuthorAddresses">
-          <End Role="Addresses" Type="Self.Address" Multiplicity="*" />
-          <End Role="Author" Type="Self.Author" Multiplicity="*" />
-        </Association>
-        <Association Name="AuthorEmails">
-          <End Role="Author" Type="Self.Author" Multiplicity="*" />
-          <End Role="Emails" Type="Self.Email" Multiplicity="*" />
-        </Association>
-        <Association Name="AuthorPhones">
-          <End Role="Author" Type="Self.Author" Multiplicity="*" />
-          <End Role="Phones" Type="Self.Phone" Multiplicity="*" />
-        </Association>
         <Association Name="CustomerAddresses">
           <End Role="Addresses" Type="Self.Address" Multiplicity="*" />
           <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
@@ -768,13 +742,8 @@
           <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
           <End Role="Phones" Type="Self.Phone" Multiplicity="*" />
         </Association>
-        <Association Name="WrittenBy">
-          <End Role="Author" Type="Self.Author" Multiplicity="*" />
-          <End Role="Books" Type="Self.Book" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="BookstoreDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Addresses" EntityType="Self.Address" />
-          <EntitySet Name="Authors" EntityType="Self.Author" />
           <EntitySet Name="BookCategories" EntityType="Self.BookCategory" />
           <EntitySet Name="Books" EntityType="Self.Book" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
@@ -803,18 +772,6 @@
             <End Role="BookCategories" EntitySet="BookCategories" />
             <End Role="Books" EntitySet="Books" />
           </AssociationSet>
-          <AssociationSet Name="AuthorAddresses" Association="Self.AuthorAddresses">
-            <End Role="Addresses" EntitySet="Addresses" />
-            <End Role="Author" EntitySet="Authors" />
-          </AssociationSet>
-          <AssociationSet Name="AuthorEmails" Association="Self.AuthorEmails">
-            <End Role="Author" EntitySet="Authors" />
-            <End Role="Emails" EntitySet="Emails" />
-          </AssociationSet>
-          <AssociationSet Name="AuthorPhones" Association="Self.AuthorPhones">
-            <End Role="Author" EntitySet="Authors" />
-            <End Role="Phones" EntitySet="Phones" />
-          </AssociationSet>
           <AssociationSet Name="CustomerAddresses" Association="Self.CustomerAddresses">
             <End Role="Addresses" EntitySet="Addresses" />
             <End Role="Customers" EntitySet="Customers" />
@@ -827,14 +784,27 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Phones" EntitySet="Phones" />
           </AssociationSet>
-          <AssociationSet Name="WrittenBy" Association="Self.WrittenBy">
-            <End Role="Author" EntitySet="Authors" />
-            <End Role="Books" EntitySet="Books" />
-          </AssociationSet>
           <EntitySet Name="SupplierReps" EntityType="BookstoreDBModel.SupplierRep" />
           <AssociationSet Name="FK_SupplierRep_Supplier" Association="BookstoreDBModel.FK_SupplierRep_Supplier">
             <End Role="Supplier" EntitySet="Suppliers" />
             <End Role="SupplierRep" EntitySet="SupplierReps" />
+          </AssociationSet>
+          <EntitySet Name="Authors" EntityType="BookstoreDBModel.Author" />
+          <AssociationSet Name="AuthorAddresses" Association="BookstoreDBModel.AuthorAddresses">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Author" EntitySet="Authors" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorEmails" Association="BookstoreDBModel.AuthorEmails">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Email" EntitySet="Emails" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorPhones" Association="BookstoreDBModel.AuthorPhones">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Phone" EntitySet="Phones" />
+          </AssociationSet>
+          <AssociationSet Name="WrittenBy" Association="BookstoreDBModel.WrittenBy">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Book" EntitySet="Books" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="SupplierRep">
@@ -863,6 +833,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="AuthorID" />
+          </Key>
+          <Property Name="AuthorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Addresses" Relationship="BookstoreDBModel.AuthorAddresses" FromRole="Author" ToRole="Address" />
+          <NavigationProperty Name="Emails" Relationship="BookstoreDBModel.AuthorEmails" FromRole="Author" ToRole="Email" />
+          <NavigationProperty Name="Phones" Relationship="BookstoreDBModel.AuthorPhones" FromRole="Author" ToRole="Phone" />
+          <NavigationProperty Name="Books" Relationship="BookstoreDBModel.WrittenBy" FromRole="Author" ToRole="Book" />
+        </EntityType>
+        <Association Name="AuthorAddresses">
+          <End Type="BookstoreDBModel.Address" Role="Address" Multiplicity="*" />
+          <End Type="BookstoreDBModel.Author" Role="Author" Multiplicity="*" />
+        </Association>
+        <Association Name="AuthorEmails">
+          <End Type="BookstoreDBModel.Author" Role="Author" Multiplicity="*" />
+          <End Type="BookstoreDBModel.Email" Role="Email" Multiplicity="*" />
+        </Association>
+        <Association Name="AuthorPhones">
+          <End Type="BookstoreDBModel.Author" Role="Author" Multiplicity="*" />
+          <End Type="BookstoreDBModel.Phone" Role="Phone" Multiplicity="*" />
+        </Association>
+        <Association Name="WrittenBy">
+          <End Type="BookstoreDBModel.Author" Role="Author" Multiplicity="*" />
+          <End Type="BookstoreDBModel.Book" Role="Book" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -877,17 +877,6 @@
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Authors">
-            <EntityTypeMapping TypeName="BookstoreDBModel.Author">
-              <MappingFragment StoreEntitySet="Author">
-                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
-                <ScalarProperty Name="Fname" ColumnName="Fname" />
-                <ScalarProperty Name="Lname" ColumnName="Lname" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -975,30 +964,6 @@
               <ScalarProperty Name="ISBN" ColumnName="ISBN" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="AuthorAddresses" TypeName="BookstoreDBModel.AuthorAddresses" StoreEntitySet="AuthorAddresses">
-            <EndProperty Name="Addresses">
-              <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-            </EndProperty>
-            <EndProperty Name="Author">
-              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="AuthorEmails" TypeName="BookstoreDBModel.AuthorEmails" StoreEntitySet="AuthorEmails">
-            <EndProperty Name="Author">
-              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
-            </EndProperty>
-            <EndProperty Name="Emails">
-              <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="AuthorPhones" TypeName="BookstoreDBModel.AuthorPhones" StoreEntitySet="AuthorPhones">
-            <EndProperty Name="Author">
-              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
-            </EndProperty>
-            <EndProperty Name="Phones">
-              <ScalarProperty Name="PhoneID" ColumnName="PhoneID" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="CustomerAddresses" TypeName="BookstoreDBModel.CustomerAddresses" StoreEntitySet="CustomerAddresses">
             <EndProperty Name="Addresses">
               <ScalarProperty Name="AddressID" ColumnName="AddressID" />
@@ -1023,14 +988,6 @@
               <ScalarProperty Name="PhoneID" ColumnName="PhoneID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="WrittenBy" TypeName="BookstoreDBModel.WrittenBy" StoreEntitySet="WrittenBy">
-            <EndProperty Name="Author">
-              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
-            </EndProperty>
-            <EndProperty Name="Books">
-              <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="SupplierReps">
             <EntityTypeMapping TypeName="BookstoreDBModel.SupplierRep">
               <MappingFragment StoreEntitySet="SupplierRep">
@@ -1043,6 +1000,49 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="BookstoreDBModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AuthorAddresses" TypeName="BookstoreDBModel.AuthorAddresses" StoreEntitySet="AuthorAddresses">
+            <EndProperty Name="Author">
+              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+            </EndProperty>
+            <EndProperty Name="Address">
+              <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AuthorEmails" TypeName="BookstoreDBModel.AuthorEmails" StoreEntitySet="AuthorEmails">
+            <EndProperty Name="Email">
+              <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+            </EndProperty>
+            <EndProperty Name="Author">
+              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AuthorPhones" TypeName="BookstoreDBModel.AuthorPhones" StoreEntitySet="AuthorPhones">
+            <EndProperty Name="Phone">
+              <ScalarProperty Name="PhoneID" ColumnName="PhoneID" />
+            </EndProperty>
+            <EndProperty Name="Author">
+              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="WrittenBy" TypeName="BookstoreDBModel.WrittenBy" StoreEntitySet="WrittenBy">
+            <EndProperty Name="Book">
+              <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+            </EndProperty>
+            <EndProperty Name="Author">
+              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,17 +1,44 @@
 ﻿@{
-    ViewBag.Title = "Admin";
+	ViewBag.Title = "Admin";
 }
 
 <div class="jumbotron">
-    <h1>Admin Page</h1>
-    <p class="lead">Use this page to view orders and customers.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+	<h1>Admin Page</h1>
+	<p class="lead">Limited access page to view everything about the customers, orders, suppliers, and more.</p>
 </div>
-
+<div class="row">
+	<div class="col-md-4">
+		<h2>Customers</h2>
+		<p>View all customers</p>
+		<p><a class="btn btn-default" href="https://localhost:44348/Customers">Customers</a></p>
+	</div>
+	<div class="col-md-4">
+		<h2>Orders</h2>
+		<p>View all orders</p>
+		<p><a class="btn btn-default" href="https://localhost:44348/Orders">Orders</a></p>
+	</div>
+	<div class="col-md-4">
+		<h2>Suppliers</h2>
+		<p>View all suppliers</p>
+		<p><a class="btn btn-default" href="https://localhost:44348/Suppliers">Suppliers</a></p>
+	</div>
+	<div class="col-md-4">
+		<h2>Authors</h2>
+		<p>View all authors</p>
+		<p><a class="btn btn-default" href="https://localhost:44348/Authors">Authors</a></p>
+	</div>
+</div>
+	<!--<div class="row">
+		<p class="lead">Use this page to view Orders, Suppliers, and Customers.</p>
+		<p><a href="https://localhost:44348/Orders" class="btn btn-primary btn-lg">Orders &raquo;</a></p>
+		<p><a href="https://localhost:44348/Suppliers" class="btn btn-primary btn-lg">Suppliers &raquo;</a></p>
+		<p><a href="https://localhost:44348/Customers" class="btn btn-primary btn-lg">Customers &raquo;</a></p>
+	</div> 
 
 <div>
-    @Html.ActionLink("List of customers", "Index", "Customers")<br />
-    @Html.ActionLink("List of phones", "Index", "Phones")<br />
-    @Html.ActionLink("List of orders", "Index", "Orders")<br />
-</div>
+	@Html.ActionLink("List of customers", "Index", "Customers")<br />
+	@Html.ActionLink("List of phones", "Index", "Phones")<br />
+	@Html.ActionLink("List of orders", "Index", "Orders")<br />
+	@Html.ActionLink("List of suppliers", "Index", "Suppliers")<br />
+</div> -->
 

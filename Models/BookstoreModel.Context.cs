@@ -26,7 +26,6 @@ namespace OnlineBookstore.Models
         }
     
         public virtual DbSet<Address> Addresses { get; set; }
-        public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<BookCategory> BookCategories { get; set; }
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
@@ -36,5 +35,6 @@ namespace OnlineBookstore.Models
         public virtual DbSet<Phone> Phones { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<SupplierRep> SupplierReps { get; set; }
+        public virtual DbSet<Author> Authors { get; set; }
     }
 }
