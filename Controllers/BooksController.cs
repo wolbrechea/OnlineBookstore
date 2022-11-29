@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using OnlineBookstore.Models;
 
 namespace OnlineBookstore.Views
@@ -28,7 +29,7 @@ namespace OnlineBookstore.Views
         public ActionResult Index(string searchString)
         {
             //var books = db.Books.Include(b => b.Supplier);
-            //string searchString = id;;
+            //string searchString = id;
 
             var books = from b in db.Books
                          select b;
@@ -38,6 +39,23 @@ namespace OnlineBookstore.Views
                 books = books.Where(s => s.Title.Contains(searchString)); 
             } 
  
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                ViewBag.Name = user.Name;
+
+                ViewBag.displayMenu = "No";
+
+                if (isAdminUser())
+                {
+                    ViewBag.displayMenu = "Yes";
+                }
+                return View(books.ToList());
+            }
+            else
+            {
+                ViewBag.Name = "Not Logged IN";
+            }
             return View(books.ToList());
         }
 
@@ -240,6 +258,26 @@ namespace OnlineBookstore.Views
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public Boolean isAdminUser()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                ApplicationDbContext context = new ApplicationDbContext();
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var s = UserManager.GetRoles(user.GetUserId());
+                if (s[0].ToString() == "Admin")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
         }
     }
 }

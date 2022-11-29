@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using OnlineBookstore.Models;
 
 namespace OnlineBookstore.Views
@@ -17,9 +19,34 @@ namespace OnlineBookstore.Views
         // GET: Orders
         public ActionResult Index()
         {
-            var orders = db.Orders.Include(o => o.Customer);
-            return View(orders.ToList());
+            int customerID = 0;
+            ViewBag.displayMenu = "No";
+
+            if (isAdminUser())
+            {
+                ViewBag.displayMenu = "Yes";
+                var orders = db.Orders.Include(o => o.Customer);
+                return View(orders.ToList());
+            }
+            else
+            {
+                var user = System.Web.HttpContext.Current.User.Identity.GetUserName();
+
+                var customers = from c in db.Customers
+                                select c;
+
+                foreach (var customer in customers.Where(s => s.Username.StartsWith(user)))
+                {
+                    customerID = customer.CustomerID;
+                }
+
+
+                var orders = db.Orders.Where(o => o.CustomerID.Equals(customerID));
+
+                return View(orders.ToList());
+            }
         }
+
 
         // GET: Orders/Details/5
         public ActionResult Details(int? id)
@@ -128,5 +155,26 @@ namespace OnlineBookstore.Views
             }
             base.Dispose(disposing);
         }
+
+        public Boolean isAdminUser()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                ApplicationDbContext context = new ApplicationDbContext();
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var s = UserManager.GetRoles(user.GetUserId());
+                if (s[0].ToString() == "Admin")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
     }
 }

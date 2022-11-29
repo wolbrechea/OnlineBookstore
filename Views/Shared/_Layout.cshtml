@@ -24,7 +24,10 @@
 						<li>@Html.ActionLink("Home", "Index", "Home")</li>
 						<li>@Html.ActionLink("Library", "Index", "Books")</li>
 						<li>@Html.ActionLink("Orders", "Index", "Orders")</li>
-						<li>@Html.ActionLink("Admin", "Admin", "Home")</li>
+						@if (ViewBag.displayMenu == "Yes")
+						{
+							<li>@Html.ActionLink("Admin", "Admin", "Home")</li>
+						}
 					</ul>
                     @Html.Partial("_LoginPartial")
                 </div>
