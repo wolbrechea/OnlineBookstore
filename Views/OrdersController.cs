@@ -12,6 +12,7 @@ using OnlineBookstore.Models;
 
 namespace OnlineBookstore.Views
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private BookstoreDBEntities1 db = new BookstoreDBEntities1();

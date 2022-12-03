@@ -12,7 +12,7 @@ using OnlineBookstore.Models;
 
 namespace OnlineBookstore.Views
 {
-    
+    [Authorize]
     public class BooksController : Controller
     {
 		private BookstoreDBEntities1 db = new BookstoreDBEntities1();
